@@ -120,7 +120,7 @@ public:
 private:
     struct TreeNode;
     using TreeNodePtr = std::unique_ptr<TreeNode>;
-    using TreeList = std::list<TreeNodePtr>;
+    using TreeList = std::vector<TreeNodePtr>;
 
     struct TreeNode
     {
@@ -172,7 +172,7 @@ private:
             std::swap(first, second);
         }
 
-        first->children.push_front(std::move(second));
+        first->children.push_back(std::move(second));
         ++first->rank;
         return first;
     }
@@ -206,6 +206,5 @@ private:
 
     int m_size = 0;
     TreeNode* m_top = nullptr;
-    std::vector<TreeNodePtr> m_trees =
-        std::vector<TreeNodePtr>(HIGHEST_RANK + 1);
+    TreeList m_trees = TreeList(HIGHEST_RANK + 1);
 };
