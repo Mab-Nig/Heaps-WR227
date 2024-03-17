@@ -21,6 +21,11 @@ public:
         assign(first, last);
     }
 
+    bool is_empty() const
+    {
+        return m_size == 0;
+    }
+
     TKey const& get_top() const
     {
         return m_container.front();
