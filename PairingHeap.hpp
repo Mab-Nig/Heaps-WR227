@@ -52,6 +52,11 @@ public:
         return *this;
     }
 
+    bool is_empty() const
+    {
+        return m_size == 0;
+    }
+
     TKey const& get_top() const
     {
         return m_root->value;

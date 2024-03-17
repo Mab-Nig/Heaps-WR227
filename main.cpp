@@ -9,7 +9,7 @@
 #include <random>
 #include <vector>
 
-int const N = 10000000;
+int const N = 1000000;
 std::vector<int> arr(N);
 
 template <class THeap>
@@ -19,10 +19,10 @@ void test(THeap& heap)
     {
         heap.push(x);
     }
-    // while (!heap.is_empty())
-    // {
-    //     heap.pop();
-    // }
+    while (!heap.is_empty())
+    {
+        heap.pop();
+    }
 }
 
 template <class THeap>
