@@ -110,6 +110,7 @@ public:
         m_size += other.m_size;
         for (int8_t i = 0; i <= HIGHEST_RANK; ++i)
         {
+            Helper::increase_iteration_cnt();
             if (other.m_trees[i])
             {
                 insert_tree(std::move(other.m_trees[i]));
@@ -120,7 +121,7 @@ public:
 private:
     struct TreeNode;
     using TreeNodePtr = std::unique_ptr<TreeNode>;
-    using TreeList = std::list<TreeNodePtr>;
+    using TreeList = std::vector<TreeNodePtr>;
 
     struct TreeNode
     {
@@ -146,6 +147,7 @@ private:
     {
         while (m_trees[tree->rank])
         {
+            Helper::increase_iteration_cnt();
             int8_t rank = tree->rank;
             tree = merge_trees(std::move(tree), std::move(m_trees[rank]));
         }
@@ -160,6 +162,7 @@ private:
     {
         for (auto it = trees.begin(); it != trees.end(); ++it)
         {
+            Helper::increase_iteration_cnt();
             insert_tree(std::move(*it));
         }
     }
@@ -171,8 +174,7 @@ private:
         {
             std::swap(first, second);
         }
-
-        first->children.push_front(std::move(second));
+        first->children.push_back(std::move(second));
         ++first->rank;
         return first;
     }
@@ -187,6 +189,8 @@ private:
 
         for (int8_t i = 0; i <= HIGHEST_RANK; ++i)
         {
+            Helper::increase_iteration_cnt();
+
             if (!m_trees[i])
             {
                 continue;
@@ -206,6 +210,5 @@ private:
 
     int m_size = 0;
     TreeNode* m_top = nullptr;
-    std::vector<TreeNodePtr> m_trees =
-        std::vector<TreeNodePtr>(HIGHEST_RANK + 1);
+    TreeList m_trees = TreeList(HIGHEST_RANK + 1);
 };

@@ -80,18 +80,25 @@ public:
 
     void push(TKey const& value)
     {
-        meld(HeapT(value));
+        ++m_size;
+        auto tree = std::make_unique<TreeNode>(value);
+        m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
     void push(TKey&& value)
     {
-        meld(HeapT(std::move(value)));
+        ++m_size;
+        auto tree = std::make_unique<TreeNode>(std::move(value));
+        m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
     template <class... Args>
     void emplace(Args&&... args)
     {
-        meld(HeapT(TKey(std::forward<Args>(args)...)));
+        ++m_size;
+        auto tree =
+            std::make_unique<TreeNode>(TKey(std::forward<Args>(args)...));
+        m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
     void pop()
@@ -105,37 +112,25 @@ public:
         }
 
         TreeList& children = m_root->children;
-        for (auto it = children.begin();
-             it != children.end() && std::next(it) != children.end(); ++it)
+        for (int i = 0; i + 1 < children.size(); i += 2)
         {
             Helper::increase_iteration_cnt();
-            *it = merge_trees(std::move(*it), std::move(*std::next(it)));
-            children.erase(std::next(it));
+            children[i] =
+                merge_trees(std::move(children[i]), std::move(children[i + 1]));
         }
 
-        for (auto it = std::next(children.rbegin()); it != children.rend();
-             ++it)
+        auto new_root = std::make_unique<TreeNode>();
+        for (int i = children.size() - 1 - !(children.size() & 1); i >= 0;
+             i -= 2)
         {
             Helper::increase_iteration_cnt();
-            children.back() =
-                merge_trees(std::move(children.back()), std::move(*it));
+            new_root = merge_trees(std::move(new_root), std::move(children[i]));
         }
-        m_root = std::move(children.back());
+        m_root = std::move(new_root);
     }
 
     void meld(HeapT&& other)
     {
-        if (other.m_size == 0)
-        {
-            return;
-        }
-
-        if (m_size == 0)
-        {
-            *this = std::move(other);
-            return;
-        }
-
         m_size += other.m_size;
         m_root = merge_trees(std::move(m_root), std::move(other.m_root));
     }
@@ -143,12 +138,14 @@ public:
 private:
     struct TreeNode;
     using TreeNodePtr = std::unique_ptr<TreeNode>;
-    using TreeList = std::list<TreeNodePtr>;
+    using TreeList = std::vector<TreeNodePtr>;
 
     struct TreeNode
     {
         TKey value;
         TreeList children;
+
+        TreeNode() = default;
 
         TreeNode(TKey const& value)
             : value(value)
@@ -182,11 +179,9 @@ private:
 
         if (Helper::compare(first->value, second->value, TCompare()))
         {
-            second->children.push_front(std::move(first));
-            return second;
+            std::swap(first, second);
         }
-
-        first->children.push_front(std::move(second));
+        first->children.push_back(std::move(second));
         return first;
     }
 
