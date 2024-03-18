@@ -82,28 +82,14 @@ public:
     {
         ++m_size;
         auto tree = std::make_unique<TreeNode>(value);
-        if (!m_root)
-        {
-            m_root = std::move(tree);
-        }
-        else
-        {
-            m_root = merge_trees(std::move(m_root), std::move(tree));
-        }
+        m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
     void push(TKey&& value)
     {
         ++m_size;
         auto tree = std::make_unique<TreeNode>(std::move(value));
-        if (!m_root)
-        {
-            m_root = std::move(tree);
-        }
-        else
-        {
-            m_root = merge_trees(std::move(m_root), std::move(tree));
-        }
+        m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
     template <class... Args>
@@ -112,14 +98,7 @@ public:
         ++m_size;
         auto tree =
             std::make_unique<TreeNode>(TKey(std::forward<Args>(args)...));
-        if (!m_root)
-        {
-            m_root = std::move(tree);
-        }
-        else
-        {
-            m_root = merge_trees(std::move(m_root), std::move(tree));
-        }
+        m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
     void pop()
@@ -145,13 +124,6 @@ public:
              i -= 2)
         {
             Helper::increase_iteration_cnt();
-
-            if (!new_root)
-            {
-                new_root = std::move(children[i]);
-                continue;
-            }
-
             new_root = merge_trees(std::move(new_root), std::move(children[i]));
         }
         m_root = std::move(new_root);
@@ -159,17 +131,6 @@ public:
 
     void meld(HeapT&& other)
     {
-        if (other.m_size == 0)
-        {
-            return;
-        }
-
-        if (m_size == 0)
-        {
-            *this = std::move(other);
-            return;
-        }
-
         m_size += other.m_size;
         m_root = merge_trees(std::move(m_root), std::move(other.m_root));
     }
@@ -206,6 +167,16 @@ private:
 private:
     TreeNodePtr merge_trees(TreeNodePtr first, TreeNodePtr second)
     {
+        if (!first)
+        {
+            return second;
+        }
+
+        if (!second)
+        {
+            return first;
+        }
+
         if (Helper::compare(first->value, second->value, TCompare()))
         {
             std::swap(first, second);
