@@ -3,7 +3,6 @@
 #include "Helper.hpp"
 
 #include <functional>
-#include <list>
 #include <memory>
 #include <vector>
 

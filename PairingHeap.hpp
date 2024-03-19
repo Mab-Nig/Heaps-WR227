@@ -3,8 +3,8 @@
 #include "Helper.hpp"
 
 #include <functional>
-#include <list>
 #include <memory>
+#include <vector>
 
 template <class TKey, class TCompare = std::less<TKey>>
 class PairingHeap
