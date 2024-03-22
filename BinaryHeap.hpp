@@ -10,7 +10,8 @@ template <class TKey, class TCompare = std::less<TKey>>
 class BinaryHeap
 {
 public:
-    using HeapT = BinaryHeap<TKey, TCompare>;
+    using SelfT = BinaryHeap<TKey, TCompare>;
+    using KeyT = TKey;
 
 public:
     BinaryHeap() = default;
@@ -41,7 +42,7 @@ public:
 
     void clear()
     {
-        *this = HeapT();
+        *this = SelfT();
     }
 
     void push(TKey const& value)

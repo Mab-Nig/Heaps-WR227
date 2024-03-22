@@ -10,7 +10,8 @@ template <class TKey, class TCompare = std::less<TKey>>
 class PairingHeap
 {
 public:
-    using HeapT = PairingHeap<TKey, TCompare>;
+    using SelfT = PairingHeap<TKey, TCompare>;
+    using KeyT = TKey;
 
 public:
     PairingHeap() = default;
@@ -33,18 +34,18 @@ public:
         assign(first, last);
     }
 
-    PairingHeap(HeapT const&) = delete;
+    PairingHeap(SelfT const&) = delete;
 
-    PairingHeap(HeapT&& other)
+    PairingHeap(SelfT&& other)
         : m_root(std::move(other))
     {
         m_size = other.m_size;
         other.m_size = 0;
     }
 
-    HeapT& operator=(HeapT const&) = delete;
+    SelfT& operator=(SelfT const&) = delete;
 
-    HeapT& operator=(HeapT&& other)
+    SelfT& operator=(SelfT&& other)
     {
         m_size = other.m_size;
         m_root = std::move(other.m_root);
@@ -75,7 +76,7 @@ public:
 
     void clear()
     {
-        *this = HeapT();
+        *this = SelfT();
     }
 
     void push(TKey const& value)
@@ -129,7 +130,7 @@ public:
         m_root = std::move(new_root);
     }
 
-    void meld(HeapT&& other)
+    void meld(SelfT&& other)
     {
         m_size += other.m_size;
         m_root = merge_trees(std::move(m_root), std::move(other.m_root));

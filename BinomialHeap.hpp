@@ -10,14 +10,15 @@ template <class TKey, class TCompare = std::less<TKey>>
 class BinomialHeap
 {
 public:
-    using HeapT = BinomialHeap<TKey, TCompare>;
+    using SelfT = BinomialHeap<TKey, TCompare>;
+    using KeyT = TKey;
 
 public:
     BinomialHeap() = default;
 
-    BinomialHeap(HeapT const& other) = delete;
+    BinomialHeap(SelfT const& other) = delete;
 
-    BinomialHeap(HeapT&& other)
+    BinomialHeap(SelfT&& other)
         : m_top(other.m_top),
           m_trees(std::move(other.m_trees))
     {
@@ -34,9 +35,9 @@ public:
 
     ~BinomialHeap() = default;
 
-    HeapT& operator=(HeapT const& other) = delete;
+    SelfT& operator=(SelfT const& other) = delete;
 
-    HeapT& operator=(HeapT&& other)
+    SelfT& operator=(SelfT&& other)
     {
         m_size = other.m_size;
         m_top = other.m_top;
@@ -69,7 +70,7 @@ public:
 
     void clear()
     {
-        *this = HeapT();
+        *this = SelfT();
     }
 
     void push(TKey const& value)
@@ -104,7 +105,7 @@ public:
         update_top();
     }
 
-    void meld(HeapT&& other)
+    void meld(SelfT&& other)
     {
         m_size += other.m_size;
         for (int8_t i = 0; i <= HIGHEST_RANK; ++i)
