@@ -2,6 +2,7 @@
 
 #include <array>
 #include <climits>
+#include <iostream>
 #include <map>
 #include <random>
 #include <type_traits>
@@ -24,7 +25,7 @@ public:
         m_distances.assign(m_vertex_cnt, LLONG_MAX);
         m_distances[0] = 0;
         THeap heap;
-        heap.push({0, 0});
+        heap.emplace(0, 0);
         while (!heap.is_empty())
         {
             DistancePair top = heap.get_top();
@@ -45,7 +46,7 @@ public:
                 }
 
                 m_distances[v] = weight + w;
-                heap.push(DistancePair{m_distances[v], v});
+                heap.emplace(m_distances[v], v);
             }
         }
         return m_distances;

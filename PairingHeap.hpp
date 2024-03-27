@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Heap.hpp"
 #include "Helper.hpp"
 
 #include <functional>
@@ -7,11 +8,12 @@
 #include <vector>
 
 template <class TKey, class TCompare = std::less<TKey>>
-class PairingHeap
+class PairingHeap : public Heap<TKey, TCompare>
 {
 public:
     using SelfT = PairingHeap<TKey, TCompare>;
-    using KeyT = TKey;
+    using ParentT = Heap<TKey, TCompare>;
+    using typename ParentT::KeyT;
 
 public:
     PairingHeap() = default;
@@ -53,12 +55,7 @@ public:
         return *this;
     }
 
-    bool is_empty() const
-    {
-        return m_size == 0;
-    }
-
-    TKey const& get_top() const
+    TKey const& get_top() const override
     {
         return m_root->value;
     }
@@ -74,19 +71,19 @@ public:
         }
     }
 
-    void clear()
+    void clear() override
     {
-        *this = SelfT();
+        *this = SelfT{};
     }
 
-    void push(TKey const& value)
+    void push(TKey const& value) override
     {
         ++m_size;
         auto tree = std::make_unique<TreeNode>(value);
         m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
-    void push(TKey&& value)
+    void push(TKey&& value) override
     {
         ++m_size;
         auto tree = std::make_unique<TreeNode>(std::move(value));
@@ -102,7 +99,7 @@ public:
         m_root = merge_trees(std::move(m_root), std::move(tree));
     }
 
-    void pop()
+    void pop() override
     {
         --m_size;
 
@@ -187,6 +184,6 @@ private:
     }
 
 private:
-    int m_size = 0;
+    using ParentT::m_size;
     TreeNodePtr m_root;
 };

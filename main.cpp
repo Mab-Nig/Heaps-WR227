@@ -1,22 +1,11 @@
-#include "AllHeap.hpp"
+#include "BinaryHeap.hpp"
 #include "Dijkstra.hpp"
-#include "HeapSort.hpp"
-
-template <class THeap>
-void measure()
-{
-    int const N = 10000;
-    int const M = 30000;
-    Dijkstra dijkstra(N, M);
-    dijkstra.generate_graph();
-    auto measure = [&]() -> void
-    {
-        dijkstra.find_shortest_path<PairingHeap<std::pair<int64_t, int>>>();
-    };
-    Helper::measure(measure);
-}
+#include "test/TestSystem.hpp"
 
 int main()
 {
-    measure<BinaryHeap<std::pair<int64_t, int>>>();
+    std::ios_base::sync_with_stdio(0);
+    std::cin.tie(nullptr);
+
+    TestSystem test_system test_system.run();
 }

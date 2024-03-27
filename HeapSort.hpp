@@ -1,18 +1,36 @@
 #pragma once
 
-#include <type_traits>
+#include <algorithm>
+#include <iostream>
+#include <random>
 #include <vector>
 
+template <class THeap>
 class HeapSort
 {
 public:
-    HeapSort(int size);
+    HeapSort(int size)
+        : m_size(size),
+          m_array(size)
+    {
+    }
 
-    void shuffle();
-    void print();
+    void shuffle()
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::shuffle(m_array.begin(), m_array.end(), gen);
+    }
 
-    template <class THeap, class = std::enable_if_t<
-                               std::is_integral_v<typename THeap::KeyT>>>
+    void print()
+    {
+        for (int x : m_array)
+        {
+            std::cout << x << ' ';
+        }
+        std::cout << '\n';
+    }
+
     void sort()
     {
         THeap heap(m_array.begin(), m_array.end());
@@ -25,5 +43,5 @@ public:
 
 private:
     int m_size;
-    std::vector<int> m_array;
+    std::vector<typename THeap::KeyT> m_array;
 };

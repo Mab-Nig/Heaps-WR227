@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Heap.hpp"
 #include "Helper.hpp"
 
 #include <iterator>
@@ -7,11 +8,12 @@
 #include <vector>
 
 template <class TKey, class TCompare = std::less<TKey>>
-class BinaryHeap
+class BinaryHeap : public Heap<TKey, TCompare>
 {
 public:
     using SelfT = BinaryHeap<TKey, TCompare>;
-    using KeyT = TKey;
+    using ParentT = Heap<TKey, TCompare>;
+    using typename ParentT::KeyT;
 
 public:
     BinaryHeap() = default;
@@ -22,12 +24,7 @@ public:
         assign(first, last);
     }
 
-    bool is_empty() const
-    {
-        return m_size == 0;
-    }
-
-    TKey const& get_top() const
+    TKey const& get_top() const override
     {
         return m_container.front();
     }
@@ -40,19 +37,19 @@ public:
         make_heap();
     }
 
-    void clear()
+    void clear() override
     {
-        *this = SelfT();
+        *this = SelfT{};
     }
 
-    void push(TKey const& value)
+    void push(TKey const& value) override
     {
         ++m_size;
         m_container.push_back(value);
         bottom_up_heapify(m_size - 1);
     }
 
-    void push(TKey&& value)
+    void push(TKey&& value) override
     {
         ++m_size;
         m_container.push_back(std::move(value));
@@ -67,7 +64,7 @@ public:
         bottom_up_heapify(m_size - 1);
     }
 
-    void pop()
+    void pop() override
     {
         --m_size;
         Helper::swap(m_container.front(), m_container.back());
@@ -75,7 +72,7 @@ public:
         top_down_heapify(0);
     }
 
-    void meld(BinaryHeap<TKey, TCompare>&& other)
+    void meld(SelfT&& other)
     {
         m_size += other.m_size;
         std::move(other.m_container.begin(), other.m_container.end(),
@@ -142,6 +139,6 @@ private:
     }
 
 private:
-    int m_size = 0;
+    using ParentT::m_size;
     std::vector<TKey> m_container;
 };

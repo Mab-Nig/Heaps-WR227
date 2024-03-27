@@ -1,15 +1,25 @@
 #pragma once
 
 #include <algorithm>
-#include <chrono>
 #include <functional>
-#include <iostream>
+#include <ostream>
 
 class Helper
 {
 public:
-    static int64_t get_swap_cnt();
+    struct TestResult
+    {
+        int64_t time = 0, comparison_cnt = 0, swap_cnt = 0, iteration_cnt = 0;
+
+        TestResult& operator+=(TestResult const& other);
+        TestResult& operator/=(int x);
+        friend std::ostream& operator<<(std::ostream& stream,
+                                        TestResult const& instance);
+    };
+
+public:
     static int64_t get_comparison_cnt();
+    static int64_t get_swap_cnt();
     static int64_t get_iteration_cnt();
     static void increase_iteration_cnt();
     static void reset();
@@ -28,7 +38,7 @@ public:
         return compare(a, b);
     }
 
-    static void measure(std::function<void()> func);
+    static TestResult measure(std::function<void()> func);
 
 private:
     static int64_t swap_cnt;

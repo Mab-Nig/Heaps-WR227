@@ -12,15 +12,14 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Og -g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native")
 
 add_executable(${PROJECT_NAME}
-  AllHeap.hpp
   BinaryHeap.hpp
   BinomialHeap.hpp
+  Heap.hpp
   PairingHeap.hpp
   
   Dijkstra.hpp
   Dijkstra.cpp
   HeapSort.hpp
-  HeapSort.cpp
 
   Helper.hpp
   Helper.cpp
