@@ -1,0 +1,12 @@
+target_sources(${PROJECT_NAME}
+  PRIVATE
+  DijkstraTestGenerator.cpp
+  DijkstraTestGenerator.hpp
+  Generator.hpp
+  GraphGenerator.cpp
+  GraphGenerator.hpp
+  SequenceGenerator.hpp
+  TestCaseGenerator.cpp
+  TestCaseGenerator.hpp
+  TestGenerator.cpp
+  TestGenerator.hpp)
