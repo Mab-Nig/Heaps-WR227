@@ -1,5 +1,20 @@
 #include "Graph.hpp"
 
+int Graph::get_vertex_cnt() const
+{
+    return m_vertex_cnt;
+}
+
+int Graph::get_edge_cnt() const
+{
+    return m_edge_cnt;
+}
+
+Graph::AdjMatrix const& Graph::get_adj_matrix() const
+{
+    return m_adj_matrix;
+}
+
 std::istream& operator>>(std::istream& stream, Graph& instance)
 {
     stream >> instance.m_vertex_cnt >> instance.m_edge_cnt;

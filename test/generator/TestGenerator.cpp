@@ -10,6 +10,7 @@ TestGenerator::TestGenerator(std::filesystem::path path)
 
 void TestGenerator::operator()()
 {
+    std::filesystem::create_directories(m_path);
     for (int i = 1; i <= MAGNITUDE_ORDER_MAX; ++i)
     {
         std::string filename = std::to_string(i) + ".txt";

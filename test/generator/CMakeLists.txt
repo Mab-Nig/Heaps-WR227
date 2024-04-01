@@ -5,6 +5,7 @@ target_sources(${PROJECT_NAME}
   Generator.hpp
   GraphGenerator.cpp
   GraphGenerator.hpp
+  HeapSortGenerator.hpp
   SequenceGenerator.hpp
   TestCaseGenerator.cpp
   TestCaseGenerator.hpp

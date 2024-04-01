@@ -4,6 +4,7 @@
 #include "Helper.hpp"
 
 #include <functional>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -117,7 +118,7 @@ public:
                 merge_trees(std::move(children[i]), std::move(children[i + 1]));
         }
 
-        auto new_root = std::make_unique<TreeNode>();
+        std::unique_ptr<TreeNode> new_root;
         for (int i = children.size() - 1 - !(children.size() & 1); i >= 0;
              i -= 2)
         {
@@ -146,12 +147,12 @@ private:
         TreeNode() = default;
 
         TreeNode(TKey const& value)
-            : value(value)
+            : value{value}
         {
         }
 
         TreeNode(TKey&& value)
-            : value(std::move(value))
+            : value{std::move(value)}
         {
         }
 

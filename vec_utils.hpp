@@ -20,7 +20,7 @@ template <class TKey>
 std::ostream& operator<<(std::ostream& stream, std::vector<TKey> const& vec)
 {
     stream << vec.size() << '\n';
-    for (auto& key : vec)
+    for (auto const& key : vec)
     {
         stream << key << ' ';
     }

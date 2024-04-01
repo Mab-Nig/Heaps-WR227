@@ -1,0 +1,10 @@
+target_sources(${PROJECT_NAME}
+  PRIVATE
+  DijkstraTestCaseRunner.hpp
+  DijkstraTestRunner.hpp
+  HeapSortTestCaseRunner.hpp
+  HeapSortTestRunner.hpp
+  TestCaseRunner.cpp
+  TestCaseRunner.hpp
+  TestRunner.cpp
+  TestRunner.hpp)

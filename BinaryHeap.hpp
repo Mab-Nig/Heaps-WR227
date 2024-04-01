@@ -83,24 +83,24 @@ public:
 private:
     void make_heap()
     {
-        for (int i = m_size - 1; i > 0; --i)
+        for (int i = (m_size - 1) >> 1; i >= 0; --i)
         {
             Helper::increase_iteration_cnt();
-            bottom_up_heapify(i);
+            top_down_heapify(i);
         }
     }
 
     void bottom_up_heapify(int index)
     {
-        int parent = index >> 1;
+        int parent = (index - 1) >> 1;
         while (index > 0
                && Helper::compare(m_container[parent], m_container[index],
                                   TCompare()))
         {
             Helper::increase_iteration_cnt();
             Helper::swap(m_container[index], m_container[parent]);
-            index >>= 1;
-            parent >>= 1;
+            index = parent;
+            parent = (index - 1) >> 1;
         }
     }
 
