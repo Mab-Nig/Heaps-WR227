@@ -32,6 +32,7 @@ public:
         auto func = [&]() -> void
         {
             THeap heap;
+            distances[0] = 0;
             heap.emplace(0, 0);
             while (!heap.is_empty())
             {

@@ -7,6 +7,8 @@ target_sources(${PROJECT_NAME}
   GraphGenerator.hpp
   HeapSortGenerator.hpp
   SequenceGenerator.hpp
+  SetTestGenerator.hpp
+  SetTestCaseGenerator.hpp
   TestCaseGenerator.cpp
   TestCaseGenerator.hpp
   TestGenerator.cpp

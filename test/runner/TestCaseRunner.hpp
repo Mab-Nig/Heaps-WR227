@@ -8,6 +8,7 @@ class TestCaseRunner
 {
 public:
     TestCaseRunner(std::ifstream& file_in, std::ofstream& file_out);
+    virtual ~TestCaseRunner() = default;
 
     virtual Helper::TestResult operator()() = 0;
 

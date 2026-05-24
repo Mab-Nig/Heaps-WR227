@@ -1,9 +1,15 @@
 target_sources(${PROJECT_NAME}
   PRIVATE
+  AlternatingTestCaseRunner.hpp
+  AlternatingTestRunner.hpp
   DijkstraTestCaseRunner.hpp
   DijkstraTestRunner.hpp
   HeapSortTestCaseRunner.hpp
   HeapSortTestRunner.hpp
+  MeldTestCaseRunner.hpp
+  MeldTestRunner.hpp
+  SequentialTestRunner.hpp
+  SequentialTestCaseRunner.hpp
   TestCaseRunner.cpp
   TestCaseRunner.hpp
   TestRunner.cpp

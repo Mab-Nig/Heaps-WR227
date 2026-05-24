@@ -4,7 +4,6 @@
 #include "Helper.hpp"
 
 #include <functional>
-#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -40,7 +39,7 @@ public:
     PairingHeap(SelfT const&) = delete;
 
     PairingHeap(SelfT&& other)
-        : m_root(std::move(other))
+        : m_root(std::move(other.m_root))
     {
         m_size = other.m_size;
         other.m_size = 0;

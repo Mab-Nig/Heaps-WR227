@@ -26,21 +26,17 @@ public:
 
         auto func = [&]() -> void
         {
-            THeap heap(array.begin(), array.end());
+            THeap heap(std::make_move_iterator(array.begin()),
+                       std::make_move_iterator(array.end()));
             for (int i = array.size() - 1; i >= 0; --i)
             {
                 array[i] = heap.get_top();
                 heap.pop();
             }
         };
-
         Helper::TestResult result = Helper::measure(func);
 
-        for (auto const& key : array)
-        {
-            m_file_out << key << ' ';
-        }
-        m_file_out << '\n';
+        m_file_out << array << '\n';
 
         return result;
     }

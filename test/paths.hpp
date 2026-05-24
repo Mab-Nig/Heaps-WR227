@@ -12,13 +12,16 @@ std::string constexpr MEASUREMENT = "measurement";
 
 std::string constexpr SEQUENCE = "sequence";
 std::string constexpr GRAPH = "graph";
+std::string constexpr SET = "set";
 
 std::string constexpr LIGHT_TYPE = "light_type";
 std::string constexpr HEAVY_TYPE = "heavy_type";
 
 std::string constexpr DIJKSTRA = "dijkstra";
 std::string constexpr HEAP_SORT = "heap_sort";
+std::string constexpr MELD = "meld";
 std::string constexpr ALTERNATING = "alternating";
+std::string constexpr SEQUENTIAL = "sequential";
 std::string constexpr INSERTION_ONLY = "insertion_only";
 std::string constexpr DELETION_ONLY = "deletion_only";
 
