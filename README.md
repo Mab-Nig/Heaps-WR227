@@ -22,3 +22,17 @@ Benchmarking three types of Heaps - Binary Heap, Binomial Heap, and Pairing Heap
     ├── generator                        # Test generators
     └── runner                           # Test runners
 ```
+
+## Build and Run
+
+**Build with:**
+
+```text
+cmake --build build
+```
+
+**Run all tests with:**
+
+```text
+./build/TechnicalWriting  # You can change its name via PROJECT_NAME in CMakeLists.txt
+```
