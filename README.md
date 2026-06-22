@@ -12,13 +12,13 @@ Benchmarking three types of Heaps - Binary Heap, Binomial Heap, and Pairing Heap
 
 ```text
 .
-├── inc                # Header files
-├── src                # Source files
-└── test               # Tests
-    ├── charts         # Test results
-    │   ├── dijkstra   # Test on Dijkstra's Algorithm
-    │   ├── heavy_type # Test with costly elements
-    │   └── light_type # Test with atomic elements
-    ├── generator      # Test generators
-    └── runner         # Test runners
+├── inc                                  # Header files
+├── src                                  # Source files
+└── test                                 # Tests
+    ├── charts                           # Test results
+    │   ├── dijkstra                     # Test on Dijkstra's Algorithm
+    │   ├── heavy_type                   # Test with costly elements
+    │   └── light_type                   # Test with atomic elements
+    ├── generator                        # Test generators
+    └── runner                           # Test runners
 ```
